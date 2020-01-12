@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kim.p2p.manager.mapper.UserMapper">
+
+    <select id="selectFirstUser" resultType="com.kim.p2p.manager.model.po.UserPO">
+        SELECT * FROM p_user
+        <where>
+
+        </where>
+        ORDER BY user_id ASC
+        LIMIT 1
+    </select>
+
+    <insert id="insertUser" parameterType="com.kim.p2p.manager.model.entity.User" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO p_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userType != null">
+                user_type,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password">
+                password,
+            </if>
+            <if test="recommendPerson != null">
+                recommend_person,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="userStatus != null">
+                user_status,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userType != null">
+                #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password">
+                #{password,jdbcType=CHAR},
+            </if>
+            <if test="recommendPerson != null">
+                #{recommendPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="userStatus != null">
+                #{userStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

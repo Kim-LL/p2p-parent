@@ -1,0 +1,24 @@
+DEBUG http-nio-8080-exec-1 druid.sql.Connection - {conn-10001,procId-84027} connected
+DEBUG http-nio-8080-exec-1 druid.sql.Connection - {conn-10002,procId-84028} connected
+DEBUG http-nio-8080-exec-1 druid.sql.Connection - {conn-10003,procId-84029} connected
+DEBUG http-nio-8080-exec-1 druid.sql.Connection - {conn-10003} pool-connect
+DEBUG http-nio-8080-exec-1 druid.sql.Statement - {conn-10003, pstmt-20000} created. SELECT * FROM p_user
+          
+        ORDER BY user_id ASC
+        LIMIT 1
+DEBUG http-nio-8080-exec-1 druid.sql.Statement - {conn-10003, pstmt-20000} Parameters : []
+DEBUG http-nio-8080-exec-1 druid.sql.Statement - {conn-10003, pstmt-20000} Types : []
+DEBUG http-nio-8080-exec-1 druid.sql.Statement - {conn-10003, pstmt-20000} executed. 75.640136 millis. SELECT * FROM p_user
+          
+        ORDER BY user_id ASC
+        LIMIT 1
+DEBUG http-nio-8080-exec-1 druid.sql.ResultSet - {conn-10003, pstmt-20000, rs-50000} open
+DEBUG http-nio-8080-exec-1 druid.sql.ResultSet - {conn-10003, pstmt-20000, rs-50000} Header: [user_id, user_type, phone_number, username, password, recommend_person, email, nickname, user_status, create_time, update_time]
+DEBUG http-nio-8080-exec-1 druid.sql.ResultSet - {conn-10003, pstmt-20000, rs-50000} Result: [2, 1, 15810573377, kim123, kim123456, 介绍人, kim@gmail.com, k, 2, 2020-01-12 01:02:31.0, null]
+DEBUG http-nio-8080-exec-1 druid.sql.ResultSet - {conn-10003, pstmt-20000, rs-50000} closed
+DEBUG http-nio-8080-exec-1 druid.sql.Statement - {conn-10003, pstmt-20000} clearParameters. 
+DEBUG http-nio-8080-exec-1 druid.sql.Connection - {conn-10003} pool-recycle
+DEBUG Druid-ConnectionPool-Destroy-1669609583 druid.sql.Connection - {conn-10001} closed
+DEBUG Druid-ConnectionPool-Destroy-1669609583 druid.sql.Connection - {conn-10002} closed
+DEBUG SpringContextShutdownHook druid.sql.Statement - {conn-10003, pstmt-20000} closed
+DEBUG SpringContextShutdownHook druid.sql.Connection - {conn-10003} closed

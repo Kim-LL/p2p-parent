@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次 getConnection 时
+    #    initialSize: 100
+    initialSize: 1
+    # 最小连接池数量
+    #    minIdle: 50
+    minIdle: 1
+    # 最大连接池数量
+    #    maxActive: 300
+    maxActive: 1
