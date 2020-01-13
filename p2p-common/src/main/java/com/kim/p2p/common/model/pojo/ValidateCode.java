@@ -1,12 +1,12 @@
 package com.kim.p2p.common.model.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Random;
 import java.util.UUID;
 
@@ -20,9 +20,21 @@ public class ValidateCode {
     private int codeCount = 5;
     // 验证码干扰线数
     private int lineCount = 150;
+
+    @Getter
+    @Setter
+    private String filePath;
+
+    @Getter
+    @Setter
+    private ByteArrayOutputStream outputStream;
     // 验证码
+    @Getter
+    @Setter
     private String code = null;
     // 验证码图片Buffer
+    @Getter
+    @Setter
     private BufferedImage buffImg = null;
     // 验证码范围,去掉0(数字)和O(拼音)容易混淆的(小写的1和L也可以去掉,大写不用了)
     private char[] codeSequence = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -104,37 +116,36 @@ public class ValidateCode {
         // 将四位数字的验证码保存到Session中。
         code = randomCode.toString();
     }
-    public void write(String path, String imageFormat) {
-        OutputStream sos = null;
 
+    //调用此方法会生成一个 文件
+    public String write(String path, String imageFormat) {
+        OutputStream sos = null;
+        String filePath = path + File.separator + UUID.randomUUID().
+                toString().
+                replace("-", "") + "." + imageFormat;
         try {
 
-            sos = new FileOutputStream(path + UUID.randomUUID().toString().substring(0, 5) + "." + imageFormat);
+            sos = new FileOutputStream(filePath);
             this.write(sos, imageFormat);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if(sos != null){
-                    sos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
+
+        return filePath;
     }
+
+    public ByteArrayOutputStream write(String imageFormat){
+        ByteArrayOutputStream memoryOs = new ByteArrayOutputStream();
+        this.write(memoryOs, imageFormat);
+        return memoryOs;
+    }
+
+    //外部调用直接写入 outputstream 流中
     private void write(OutputStream sos, String imageFormat) {
         try {
             ImageIO.write(buffImg, imageFormat, sos);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    public BufferedImage getBuffImg() {
-        return buffImg;
-    }
-    public String getCode() {
-        return code;
     }
 }

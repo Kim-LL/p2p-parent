@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.UUID;
 
 @Service
@@ -35,8 +37,11 @@ public class CodeServiceImpl implements CodeService {
 
         CodeVO vo = new CodeVO();
         vo.setResult(true);
-        byte[] bytes = ImageUtils.imageToBytes(validateCode.getBuffImg(), ImageUtils.FORMAT_PNG);
+        ByteArrayOutputStream memoryOs = validateCode.getOutputStream();
 
+//        byte[] bytes = ImageUtils.imageToBytes(validateCode.getBuffImg(), ImageUtils.FORMAT_PNG);
+
+        byte[] bytes = memoryOs.toByteArray();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentLength(bytes.length);
         headers.setContentType(MediaType.IMAGE_PNG);
@@ -48,7 +53,6 @@ public class CodeServiceImpl implements CodeService {
         redisUtils.expire(uuid, TimeConstant.SECOND_60);
         Cookie cookie = new Cookie(AuthorityConstant.AUTHORITY_ID, uuid);
         vo.setCookie(cookie);
-
         return vo;
     }
 }
