@@ -52,9 +52,14 @@ public class UserServiceImpl implements UserService {
         log.info("user: {}", JSON.toJSONString(user));
         //判断验证码图片是否一致
         String authorityId = user.getAuthorityId();
+        if(authorityId == null){
+            vo.setResult(false);
+            vo.setMsg(AuthorityConstant.CODE_NO_FLASH);
+            return vo;
+        }
         String pictureCode = redisUtils.get(authorityId).toString();
         log.info("pictureCode: {}, redisPictureCode: {}", user.getPictureCode(), pictureCode);
-        if(!pictureCode.equals(user.getPictureCode())){
+        if(!pictureCode.equalsIgnoreCase(user.getPictureCode())){
             vo.setResult(false);
             vo.setMsg(AuthorityConstant.CODE_UNCORRENT);
         }

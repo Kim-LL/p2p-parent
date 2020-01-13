@@ -53,12 +53,17 @@ public class UserController {
         if(data != null){
             return ResultUtils.error(data);
         }
+        String authorityId = null;
         for(Cookie cookie: request.getCookies()){
             if(cookie.getName().equals(AuthorityConstant.AUTHORITY_ID)){
-                user.setAuthorityId(cookie.getValue());
+                authorityId = cookie.getValue();
                 break;
             }
         }
+        if(authorityId == null){
+            return ResultUtils.error(AuthorityConstant.CODE_NO_FLASH);
+        }
+        user.setAuthorityId(authorityId);
         UserVO vo = userService.createUser(user);
 
         if(vo.getResult()){
