@@ -9,6 +9,7 @@ import com.kim.p2p.manager.constant.AuthorityConstant;
 import com.kim.p2p.manager.model.vo.CodeVO;
 import com.kim.p2p.manager.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +24,18 @@ import java.util.UUID;
 @Service
 public class CodeServiceImpl implements CodeService {
 
+    @Value(value = "${pictureCodeWidth}")
+    private Integer pictureCodeWidth;
+
+    @Value(value = "${pictureCodeHeight}")
+    private Integer pictureCodeHeight;
+
+    @Value(value = "${pictureCodeCount}")
+    private Integer pictureCodeCount;
+
+    @Value(value = "${pictureCodeLineCount}")
+    private Integer pictureCodeLineCount;
+
     @Autowired
     private RedisUtils redisUtils;
 
@@ -33,7 +46,7 @@ public class CodeServiceImpl implements CodeService {
     public CodeVO getCodeInfo() {
 
 
-        ValidateCode validateCode = validateCodeUtils.getCode(140, 40, 4, 20);
+        ValidateCode validateCode = validateCodeUtils.getCode(pictureCodeWidth, pictureCodeHeight, pictureCodeCount, pictureCodeLineCount);
 
         CodeVO vo = new CodeVO();
         vo.setResult(true);

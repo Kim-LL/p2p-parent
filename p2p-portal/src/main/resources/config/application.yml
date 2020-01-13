@@ -79,3 +79,9 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
   page-size-zero: true
+
+
+pictureCodeWidth: 140
+pictureCodeHeight: 40
+pictureCodeCount: 5
+pictureCodeLineCount: 50

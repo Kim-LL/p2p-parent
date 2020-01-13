@@ -11,9 +11,6 @@ import java.io.OutputStream;
 @Component
 public class ValidateCodeUtils {
 
-    @Value(value = "${homePath}")
-    private String homePath;
-
     private ByteArrayOutputStream generator(ValidateCode validateCode){
 
 //        return validateCode.write(homePath, ImageUtils.FORMAT_PNG);
